@@ -43,4 +43,5 @@ Editar
 📄 Licença
 Este projeto é de caráter experimental, desenvolvido apenas para fins de estudo e apresentação, e não possui uma licença definida.  
 
-Desenvolvido com 💜 por Laura de Miranda Puga
+Desenvolvido com 💜 por Laura de Miranda Puga  
+Link de acesso ao protótipo: https://www.figma.com/proto/r5sOLTO9I7geVIo2jiyOrX/Prot%C3%B3tipo-Web-Chat-FURIA?node-id=0-1&t=uVU6VEoeE76QPvIG-1
