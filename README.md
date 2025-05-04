@@ -4,8 +4,8 @@ Interface conversacional criada para os fãs do time de CS:GO da FURIA Esports. 
 
 ## 🚀 Funcionalidades
 
-- Mensagens automáticas com avatar da FURIA (exibido apenas na primeira mensagem de cada ciclo do bot)
-- Navegação através de botões com submenus
+- Mensagens automáticas da FURIA 
+- Navegação através de botões ou digitação com submenus
 - Respostas organizadas por tópicos:
   - Jogadores da lineup atual
   - Mídias e redes sociais oficiais
@@ -20,7 +20,7 @@ Interface conversacional criada para os fãs do time de CS:GO da FURIA Esports. 
 ## 📦 Como Executar
 
 1. Clone o repositório:
-   ```bash
+   ```bash```
    git clone https://github.com/laurapugaa/Challenge-1-FURIA.git
 Acesse a pasta do projeto:
 
