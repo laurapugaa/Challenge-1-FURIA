@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BotFuria Chat</title>
+    <title>BotFuria Web Chat</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="images\avatarPantera.png">
   </head>
   <body>
     <div class="chat-container">
       <div class="chat-header">
-        <img src="logo-pantera.png" alt="Logo FURIA" class="logo" />
+        <img src="images\logoPantera.png" alt="Logo FURIA" class="logo" />
         <h1>BOTFURIA</h1>
       </div>
       <div id="chat"></div>
@@ -25,12 +26,14 @@
 
     <script>
       let estadoConversa = "menu-principal";
+      let quizIndex = 0;
+      let quizPontos = 0;
       const mensagensOutro = [];
 
       const perguntasMenu = {
         "menu-principal": {
           pergunta:
-            "Olá, furioso(a)! O que você gostaria de descobrir sobre nós? 🐾🔥",
+            "🔥 Fala, FURIOSO! Eu sou o FURIBOT, seu guia para tudo sobre a FURIA. Bora explorar juntos? O que você gostaria de descobrir sobre nós? 🐾🔥",
           opcoes: [
             "1. Curiosidades sobre a FURIA",
             "2. Calendário de jogos",
@@ -49,10 +52,19 @@
             "2. Origem do nome FURIA",
             "3. Bordões da comunidade",
           ],
+          respostas: [
+            "🎯 O arT é conhecido pelo seu estilo extremamente agressivo no CS:GO.Ele é famoso por avançar rapidamente em posições perigosas e surpreender os adversários, criando espaço para o time e forçando erros. Esse estilo ousado se tornou uma marca registrada da FURIA e é admirado por muitos fãs!", 
+            "📛 O nome FURIA foi escolhido para representar intensidade, garra e paixão – características que definem o espírito competitivo do time. A palavra remete à ideia de uma força indomável, o que combina perfeitamente com o estilo de jogo do time nos eSports.", 
+            "📣 Alguns dos bordões mais populares entre os torcedores da FURIA incluem 'Furia é Brasil!', 'Vai pra cima deles, FURIA!' e 'Nunca é só jogo!'. Esses bordões representam o orgulho da torcida e a energia contagiante da comunidade furiosa nos campeonatos!"
+          ],
         },
         calendario: {
           pergunta: "Sobre o calendário, o que você quer ver? 🗓️",
           opcoes: ["1. Próximo jogo", "2. Calendário de jogos do mês"],
+          respostas: [
+            "📍 O próximo jogo da FURIA será contra a Team Liquid, dia 05 de maio às 18h (horário de Brasília). Fique ligado!",
+            "📅 Em maio, a FURIA participará de três campeonatos: um qualifier regional, a BLAST Premier e o IEM Dallas. Acompanhe as datas e horários nas redes oficiais da FURIA ou aqui no bot!🌐 Site oficial: https://www.furia.gg 📸 Instagram oficial: https://www.instagram.com/furiagg (@furiagg)"
+          ],
         },
         resultados: {
           pergunta: "Qual informação você quer sobre nossos resultados? 🎮",
@@ -61,42 +73,83 @@
             "2. Vitórias do mês",
             "3. Jogador com mais kills",
           ],
+          respostas: [
+            "📊 Nos últimos jogos, a FURIA venceu a Imperial por 2x1 e perdeu para a NAVI por 1x2. A equipe tem se mantido competitiva contra times do top 10 mundial.",
+            "🔥 Neste mês, a FURIA conquistou 4 vitórias em 6 partidas disputadas. O time vem mostrando evolução e consistência!",
+            "🎯 O destaque do mês é o KSCERATO, com mais de 200 kills em partidas oficiais. Ele tem sido o pilar defensivo e ofensivo do time!"
+          ],
         },
         quiz: {
-          pergunta: "Quer participar de um quiz rápido? 🏆🔥",
+          pergunta: "🏆🔥 Bora testar seu nível de torcedor FURIA! Responda essas 3 perguntas e descubra seu nível de paixão pelo time:",
           opcoes: ["Sim", "Não"],
+          perguntas: [
+            {
+              enunciado: "1️⃣ Qual é o nome do capitão do time de CS da FURIA?",
+              opcoes: ["1. FalleN", "2. arT", "3. yuurih"],
+              correta: "2"
+            },
+            {
+              enunciado: "2️⃣ Qual é o animal que representa a FURIA?",
+              opcoes: ["1. Lobo", "2. Tigre", "3. Pantera"],
+              correta: "3"
+            },
+            {
+              enunciado: "3️⃣ Em que país a FURIA foi fundada?",
+              opcoes: ["1. Brasil", "2. Estados Unidos", "3. Suécia"],
+              correta: "1"
+            }
+          ],
+          resultado: (pontos) => {
+            if (pontos === 3) {
+              return "🔥 Você é um **FURIA Fanático**! Conhece tudo e vive o espírito furioso!";
+            } else if (pontos === 2) {
+              return "💪 Você é um **Furioso Raiz**! Sabe bastante, continue acompanhando!";
+            } else {
+              return "👀 Você é um **Torcedor Casual**, mas tem potencial! Bora aprender mais sobre a FURIA!";
+            }
+          }
         },
         jogadores: {
           pergunta: "Sobre qual jogador você quer saber mais? 👤",
           opcoes: ["1. KSCERATO", "2. yuurih", "3. arT"],
+          respostas: [
+            "🧊 KSCERATO é conhecido pela frieza e precisão nos momentos decisivos. Ele está na FURIA desde 2018 e é um dos jogadores mais consistentes do cenário brasileiro.",
+            "🎯 yuurih é um rifler completo, com excelente leitura de jogo e movimentação. É considerado por muitos um dos melhores jogadores brasileiros da atualidade.",
+            "⚡ arT é o capitão e IGL (In-Game Leader) da FURIA. Seu estilo agressivo moldou a identidade da equipe e o diferenciou no cenário mundial."
+          ],
         },
         midias: {
           pergunta: "Que tipo de conteúdo você quer ver? 🎥",
           opcoes: ["1. Bastidores", "2. Melhores jogadas", "3. Documentário"],
+          respostas: [
+          "🎬 Nos bastidores, você acompanha a preparação da equipe, treinos, viagens e momentos descontraídos. Uma chance única de ver o lado humano dos players.",
+          "💥 As melhores jogadas da FURIA incluem clutches incríveis, entradas agressivas e retakes coordenados. Não perca os highlights nas redes sociais!",
+          "📽️ A FURIA lançou um mini documentário contando sua trajetória desde os torneios brasileiros até os palcos internacionais. Um verdadeiro show de superação!"
+        ],
         },
         estilo: {
           pergunta: "Sobre nosso estilo, o que você quer explorar? ✨",
           opcoes: ["1. Roupas", "2. Wallpapers", "3. Grito da torcida"],
+          respostas: [
+            "🖤 A linha de roupas da FURIA mistura esportividade com streetwear. Camisas, moletons e acessórios com visual marcante e identidade forte.",
+            "📱 Quer personalizar seu PC ou celular? A FURIA oferece wallpapers oficiais com artes exclusivas e temas do time. Confere no site! 🌐 Site oficial: https://www.furia.gg",
+            "🐾 O grito da torcida é ‘FURIAAAAA!’ — forte, potente e vibrante. Um símbolo da paixão e união dos fãs nos momentos mais importantes."
+          ],
         },
       };
 
+      //Função de enviar mensagem do FURIBOT para o usuário
       function enviarMensagem(mensagem, opcoes = []) {
         const chat = document.getElementById("chat");
         const msg = document.createElement("div");
         msg.className = "message bot-massage";
 
-        const avatar = document.createElement("img");
-        avatar.src = "avatar-pantera.png"; // caminho da imagem do avatar
-        avatar.alt = "Bot Avatar";
-        avatar.className = "avatar";
-
-        // cria o texto
+        // criando o texto
         const textContainer = document.createElement("div");
         textContainer.className = "text-container";
         textContainer.innerHTML = `<p>${mensagem}</p>`;
 
-        msg.appendChild(avatar); // adiciona avatar primeiro
-        msg.appendChild(textContainer); // depois o texto
+        msg.appendChild(textContainer);
 
         if (opcoes.length > 0) {
           const optionsDiv = document.createElement("div");
@@ -114,18 +167,37 @@
         chat.scrollTop = chat.scrollHeight;
       }
 
+      //Função de enviar mensagem do usuário para o FURIBOT
       function enviarResposta() {
         const input = document.getElementById("userInput");
         const resposta = input.value.trim();
         if (resposta) {
+          mostrarMensagemUsuario(resposta);
           receberResposta(resposta);
           input.value = "";
         }
       }
 
+      //Função que mostra no chat a mensagem do usuário para o FURIBOT
+      function mostrarMensagemUsuario(resposta) {
+        const chat = document.getElementById("chat");
+        const msg = document.createElement("div");
+        msg.className = "message user-message"; 
+
+        const textContainer = document.createElement("div");
+        textContainer.className = "text-container";
+        textContainer.innerHTML = `<p>${resposta}</p>`;
+
+        msg.appendChild(textContainer);
+        chat.appendChild(msg);
+        chat.scrollTop = chat.scrollHeight;
+      }
+
+      //Função que o FURIBOT recebe a resposta do usuário em relação ao menu de opções disponibilizado
       function receberResposta(resposta) {
         resposta = resposta.trim().toLowerCase();
 
+        //Opções do menu principal
         if (estadoConversa === "menu-principal") {
           if (resposta >= 1 && resposta <= 8) {
             switch (resposta) {
@@ -140,7 +212,11 @@
                 break;
               case "4":
                 estadoConversa = "quiz";
-                break;
+                quizIndex = 0;
+                quizPontos = 0;
+                const primeiraPergunta = perguntasMenu.quiz.perguntas[quizIndex];
+                enviarMensagem(primeiraPergunta.enunciado, primeiraPergunta.opcoes);
+                return;
               case "5":
                 estadoConversa = "jogadores";
                 break;
@@ -154,6 +230,8 @@
                 estadoConversa = "outro";
                 break;
             }
+
+            //Condicional que recebe sugestões de outras opções do usuário
             if (estadoConversa !== "outro") {
               enviarMensagem(
                 perguntasMenu[estadoConversa].pergunta,
@@ -165,6 +243,145 @@
           } else {
             enviarMensagem("Escolha um número de 1 a 8, por favor. 🙏");
           }
+
+        //Condicional curiosidades
+        } else if (estadoConversa === "curiosidades") {
+          const index = parseInt(resposta) - 1;
+          if (
+            index >= 0 &&
+            index < perguntasMenu.curiosidades.respostas.length
+          ) {
+            enviarMensagem(perguntasMenu.curiosidades.respostas[index]);
+          } else {
+            enviarMensagem("Opção inválida. Tente novamente. 🙃");
+            return;
+          }
+          estadoConversa = "menu-principal";
+          enviarMensagem(
+            perguntasMenu["menu-principal"].pergunta,
+            perguntasMenu["menu-principal"].opcoes
+          );
+
+        //Condicional calendário
+        } else if (estadoConversa === "calendario") {
+          const index = parseInt(resposta) - 1;
+          if (
+            index >= 0 &&
+            index < perguntasMenu.calendario.respostas.length
+          ) {
+            enviarMensagem(perguntasMenu.calendario.respostas[index]);
+          } else {
+            enviarMensagem("Opção inválida. Tente novamente. 🙃");
+            return;
+          }
+          estadoConversa = "menu-principal";
+          enviarMensagem(
+            perguntasMenu["menu-principal"].pergunta,
+            perguntasMenu["menu-principal"].opcoes
+          );
+
+        //Condicional resultados
+        } else if (estadoConversa === "resultados") {
+          const index = parseInt(resposta) - 1;
+          if (
+            index >= 0 &&
+            index < perguntasMenu.resultados.respostas.length
+          ) {
+            enviarMensagem(perguntasMenu.resultados.respostas[index]);
+          } else {
+            enviarMensagem("Opção inválida. Tente novamente. 🙃");
+            return;
+          }
+          estadoConversa = "menu-principal";
+          enviarMensagem(
+            perguntasMenu["menu-principal"].pergunta,
+            perguntasMenu["menu-principal"].opcoes
+          );
+       
+        //Condicional quiz
+        } else if (estadoConversa === "quiz") {
+          const perguntaAtual = perguntasMenu.quiz.perguntas[quizIndex];
+          const respostaCorreta = perguntaAtual.correta;
+
+          if (resposta === respostaCorreta) {
+            quizPontos++;
+          }
+
+          quizIndex++;
+
+          if (quizIndex < perguntasMenu.quiz.perguntas.length) {
+            const proximaPergunta = perguntasMenu.quiz.perguntas[quizIndex];
+            enviarMensagem(proximaPergunta.enunciado, proximaPergunta.opcoes);
+          } else {
+            const resultado = perguntasMenu.quiz.resultado(quizPontos);
+            enviarMensagem(resultado);
+
+            // resetar quiz e voltar ao menu principal
+            quizIndex = 0;
+            quizPontos = 0;
+            estadoConversa = "menu-principal";
+
+            enviarMensagem(
+              perguntasMenu["menu-principal"].pergunta,
+              perguntasMenu["menu-principal"].opcoes
+            );
+          }
+
+        //Condicional jogadores
+        } else if (estadoConversa === "jogadores") {
+          const index = parseInt(resposta) - 1;
+          if (
+            index >= 0 &&
+            index < perguntasMenu.jogadores.respostas.length
+          ) {
+            enviarMensagem(perguntasMenu.jogadores.respostas[index]);
+          } else {
+            enviarMensagem("Opção inválida. Tente novamente. 🙃");
+            return;
+          }
+          estadoConversa = "menu-principal";
+          enviarMensagem(
+            perguntasMenu["menu-principal"].pergunta,
+            perguntasMenu["menu-principal"].opcoes
+          );
+
+        //Condicional midias
+        } else if (estadoConversa === "midias") {
+          const index = parseInt(resposta) - 1;
+          if (
+            index >= 0 &&
+            index < perguntasMenu.midias.respostas.length
+          ) {
+            enviarMensagem(perguntasMenu.midias.respostas[index]);
+          } else {
+            enviarMensagem("Opção inválida. Tente novamente. 🙃");
+            return;
+          }
+          estadoConversa = "menu-principal";
+          enviarMensagem(
+            perguntasMenu["menu-principal"].pergunta,
+            perguntasMenu["menu-principal"].opcoes
+          );
+
+        //Condicional estilo
+        } else if (estadoConversa === "estilo") {
+          const index = parseInt(resposta) - 1;
+          if (
+            index >= 0 &&
+            index < perguntasMenu.estilo.respostas.length
+          ) {
+            enviarMensagem(perguntasMenu.estilo.respostas[index]);
+          } else {
+            enviarMensagem("Opção inválida. Tente novamente. 🙃");
+            return;
+          }
+          estadoConversa = "menu-principal";
+          enviarMensagem(
+            perguntasMenu["menu-principal"].pergunta,
+            perguntasMenu["menu-principal"].opcoes
+          );
+        
+        //Condicional outro
         } else if (estadoConversa === "outro") {
           mensagensOutro.push(resposta);
           enviarMensagem(
@@ -175,12 +392,14 @@
             perguntasMenu["menu-principal"].pergunta,
             perguntasMenu["menu-principal"].opcoes
           );
+
         } else {
           if (resposta === "não" || resposta === "nao") {
             estadoConversa = "menu-principal";
             enviarMensagem(
               perguntasMenu["menu-principal"].pergunta,
-              perguntasMenu["menu-principal"].opcoes
+              perguntasMenu["menu-principal"].opcoes,
+              perguntasMenu["menu-principal"].resposta
             );
           } else if (resposta === "sim" || (resposta >= 1 && resposta <= 3)) {
             enviarMensagem(
@@ -189,7 +408,8 @@
             estadoConversa = "menu-principal";
             enviarMensagem(
               perguntasMenu["menu-principal"].pergunta,
-              perguntasMenu["menu-principal"].opcoes
+              perguntasMenu["menu-principal"].opcoes,
+              perguntasMenu["menu-principal"].resposta
             );
           } else {
             enviarMensagem(
@@ -203,10 +423,10 @@
       window.onload = () => {
         enviarMensagem(
           perguntasMenu["menu-principal"].pergunta,
-          perguntasMenu["menu-principal"].opcoes
+          perguntasMenu["menu-principal"].opcoes,
+          perguntasMenu["menu-principal"].resposta
         );
       };
     </script>
-    <script src="index.js"></script>
   </body>
 </html>
